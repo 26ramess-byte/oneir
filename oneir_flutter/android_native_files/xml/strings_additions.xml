@@ -1,0 +1,13 @@
+<!--
+  Add this string inside android/app/src/main/res/values/strings.xml (create
+  the file if `flutter create .` didn't generate one -- it's just a plain
+  <resources> file). Referenced by oneir_accessibility_service_config.xml,
+  and shown to the user on Android's Accessibility settings screen as the
+  service description.
+-->
+<resources>
+    <string name="oneir_accessibility_service_description">
+        Lets Vanya notice when you open a protected app, so she can check in
+        before you start scrolling. Oneir never reads what\'s on your screen.
+    </string>
+</resources>

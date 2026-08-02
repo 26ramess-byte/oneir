@@ -1,0 +1,51 @@
+<!--
+  Add these inside the <manifest> tag (permissions) and inside the
+  <application> tag (service + activity), in
+  android/app/src/main/AndroidManifest.xml, after running `flutter create .`.
+-->
+
+<!-- Inside <manifest>, as a sibling of <application> (Android 11+ package visibility): -->
+<queries>
+    <intent>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent>
+</queries>
+
+<!-- Inside <manifest>, as a sibling of <application>: -->
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+<uses-permission android:name="android.permission.INTERNET" />
+
+<!--
+  Inside <application>, alongside the existing <activity android:name=".MainActivity">
+  entry that `flutter create .` already generated:
+-->
+<service
+    android:name=".OneirAccessibilityService"
+    android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+    android:exported="false">
+    <intent-filter>
+        <action android:name="android.accessibilityservice.AccessibilityService" />
+    </intent-filter>
+    <meta-data
+        android:name="android.accessibilityservice"
+        android:resource="@xml/oneir_accessibility_service_config" />
+</service>
+
+<activity
+    android:name=".InterruptionActivity"
+    android:exported="false"
+    android:excludeFromRecents="true"
+    android:launchMode="singleTop"
+    android:theme="@style/LaunchTheme" />
+
+<!--
+  Also required: enable passing arguments to a custom Dart entrypoint
+  (InterruptionActivity.getDartEntrypointArgs() -> interruptionMain(args)).
+  Add this <meta-data> tag inside <application> too:
+-->
+<meta-data
+    android:name="io.flutter.embedding.android.EnableDartEntrypointArgs"
+    android:value="true" />
+
